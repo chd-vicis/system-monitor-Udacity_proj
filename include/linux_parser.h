@@ -18,9 +18,20 @@ const std::string kVersionFilename{"/version"};
 const std::string kOSPath{"/etc/os-release"};
 const std::string kPasswordPath{"/etc/passwd"};
 
+// The below code was a suggestion from the first reviewer
+const std::string filterProcesses("processes");
+const std::string filterRunningProcesses("procs_running");
+const std::string filterMemTotalString("MemTotal:");
+const std::string filterMemFreeString("MemFree:");
+//const std::string filterCpu("cpu");
+const std::string filterUID("Uid:");
+const std::string filterProcMem("VmRSS:");
+
+
+
 // System
 float MemoryUtilization();
-long UpTime();
+long int UpTime();
 std::vector<int> Pids();
 int TotalProcesses();
 int RunningProcesses();
@@ -40,7 +51,7 @@ enum CPUStates {
   kGuest_,
   kGuestNice_
 };
-std::vector<std::string> CpuUtilization();
+float CpuUtilization();
 long Jiffies();
 long ActiveJiffies();
 long ActiveJiffies(int pid);
@@ -48,10 +59,11 @@ long IdleJiffies();
 
 // Processes
 std::string Command(int pid);
-std::string Ram(int pid);
+std::string Ram(const int pid);
 std::string Uid(int pid);
 std::string User(int pid);
 long int UpTime(int pid);
+float ProcessCPU(int pid);
 };  // namespace LinuxParser
 
 #endif
